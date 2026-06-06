@@ -1,5 +1,5 @@
 import { Section } from '../components/index';
-import { Heart, Target, Users, Globe, Award, Handshake } from 'lucide-react';
+import { Heart, Target, Users, Globe, Award } from 'lucide-react';
 
 export default function Sobre() {
   const team = [
