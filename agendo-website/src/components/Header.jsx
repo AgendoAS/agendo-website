@@ -19,7 +19,7 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
       <Link to="/" className="flex items-center">
-<img src="/public/AGENDO.png" alt="AGENDO Logo" className="h-16 w-auto" />        <div className="hidden md:flex items-center gap-8">
+<img src="/AGENDO.png" alt="AGENDO Logo" className="h-16 w-auto" />        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.path}
