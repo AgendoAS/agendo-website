@@ -4,7 +4,6 @@ import { Menu, X } from 'lucide-react';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'Serviços', path: '/servicos' },
@@ -18,12 +17,14 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-      <Link to="/" className="flex items-center">
-  <img src="/AGENDO.png" alt="AGENDO Logo" className="h-16 w-auto" />
-</Link>
+        <Link to="/" className="flex items-center">
+          <img src="/AGENDO.png" alt="AGENDO Logo" className="h-16 w-auto" />
+        </Link>
 
-<div className="hidden md:flex items-center gap-8">          {navLinks.map((link) => (
-            <Link></Link>
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link
               key={link.path}
               to={link.path}
               className="text-slate-700 hover:text-blue-600 transition-colors text-sm font-medium"
@@ -35,7 +36,7 @@ export default function Header() {
 
         {/* CTA Button Desktop */}
         <div className="hidden md:block">
-          <a
+          
             href="https://buscador-de-editais-para-oscs-agendo.onrender.com"
             target="_blank"
             rel="noopener noreferrer"
@@ -73,7 +74,7 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <a
+            
               href="https://buscador-de-editais-para-oscs-agendo.onrender.com"
               target="_blank"
               rel="noopener noreferrer"
