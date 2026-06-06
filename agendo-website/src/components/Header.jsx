@@ -18,13 +18,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-900 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">A</span>
-          </div>
-          <span className="font-bold text-xl text-slate-900 hidden sm:inline">AGENDO</span>
+       <Link to="/" className="flex items-center">
+          <img src="/AGENDO.png" alt="AGENDO Logo" className="h-16 w-auto" />
         </Link>
-
         {/* Menu Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
