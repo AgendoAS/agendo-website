@@ -21,7 +21,7 @@ export default function Header() {
       <Link to="/" className="flex items-center">
 <img src="/AGENDO.png" alt="AGENDO Logo" className="h-16 w-auto" />        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link
+            <Link></Link>
               key={link.path}
               to={link.path}
               className="text-slate-700 hover:text-blue-600 transition-colors text-sm font-medium"
