@@ -29,6 +29,7 @@ export default function ServicoDetail() {
   const { id } = useParams();
   const servico = servicosDetalhados[id];
   const [email, setEmail] = useState('');
+  const [mensagem, setMensagem] = useState('');
   const [enviado, setEnviado] = useState(false);
 
   if (!servico) {
@@ -37,11 +38,11 @@ export default function ServicoDetail() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aqui você pode integrar com Formspree ou outro serviço de email
-    console.log('Email enviado:', email);
+    console.log('Email:', email, 'Mensagem:', mensagem);
     setEnviado(true);
     setTimeout(() => {
       setEmail('');
+      setMensagem('');
       setEnviado(false);
     }, 3000);
   };
@@ -65,30 +66,42 @@ export default function ServicoDetail() {
         </div>
       </div>
 
-      {/* Formulário de Email */}
       <div className="bg-gradient-to-r from-blue-800 to-blue-900 rounded-lg shadow-lg p-8 text-white">
-        <h2 className="text-2xl font-bold mb-4">Solicitar Orçamento</h2>
-        <p className="mb-6 text-blue-100">Envie seu email para que nossa equipe entre em contato com você</p>
+        <h2 className="text-2xl font-bold mb-4">Como Podemos Ajudar?</h2>
+        <p className="mb-6 text-blue-100">Envie seu email e nos conte como podemos ajudar sua OSC. Entraremos em contato em breve para discutir soluções personalizadas.</p>
 
-        <form onSubmit={handleSubmit} className="max-w-md">
-          <div className="flex gap-2">
+        <form onSubmit={handleSubmit} className="max-w-xl">
+          <div className="mb-4">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
               required
-              className="flex-1 px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
-            <button
-              type="submit"
-              className="px-6 py-3 bg-green-500 hover:bg-green-600 rounded font-semibold transition-colors"
-            >
-              Enviar
-            </button>
           </div>
+          
+          <div className="mb-4">
+            <textarea
+              value={mensagem}
+              onChange={(e) => setMensagem(e.target.value)}
+              placeholder="Conte-nos como podemos ajudar sua organização..."
+              required
+              rows="5"
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="px-6 py-3 bg-green-500 hover:bg-green-600 rounded font-semibold transition-colors"
+          >
+            Enviar Solicitação
+          </button>
+          
           {enviado && (
-            <p className="mt-4 text-green-200 font-semibold">✓ Email enviado com sucesso!</p>
+            <p className="mt-4 text-green-200 font-semibold">✓ Mensagem enviada com sucesso! Entraremos em contato em breve.</p>
           )}
         </form>
       </div>
