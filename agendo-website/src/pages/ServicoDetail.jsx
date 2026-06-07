@@ -30,21 +30,45 @@ export default function ServicoDetail() {
   const servico = servicosDetalhados[id];
   const [email, setEmail] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
+  const [erro, setErro] = useState(false);
 
   if (!servico) {
     return <div className="text-center py-12">Serviço não encontrado</div>;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Mensagem:', mensagem);
-    setEnviado(true);
-    setTimeout(() => {
-      setEmail('');
-      setMensagem('');
-      setEnviado(false);
-    }, 3000);
+    setEnviando(true);
+    setErro(false);
+
+    try {
+      const response = await fetch('https://formspree.io/f/mwvjljpl', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          message: mensagem,
+          _subject: `Interesse em: ${servico.title} - AGENDO`,
+          _replyto: email
+        })
+      });
+
+      if (response.ok) {
+        setEnviado(true);
+        setEmail('');
+        setMensagem('');
+        setTimeout(() => setEnviado(false), 5000);
+      } else {
+        setErro(true);
+      }
+    } catch (err) {
+      setErro(true);
+      console.error('Erro ao enviar:', err);
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
@@ -61,9 +85,7 @@ export default function ServicoDetail() {
         <div className="text-5xl mb-4">{servico.icon}</div>
         <h1 className="text-4xl font-bold text-blue-800 mb-6">{servico.title}</h1>
         
-        <div className="prose prose-lg max-w-none">
-          <p className="text-gray-700 leading-relaxed text-lg">{servico.fullText}</p>
-        </div>
+        <p className="text-gray-700 leading-relaxed text-lg">{servico.fullText}</p>
       </div>
 
       <div className="bg-gradient-to-r from-blue-800 to-blue-900 rounded-lg shadow-lg p-8 text-white">
@@ -78,7 +100,8 @@ export default function ServicoDetail() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
               required
-              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              disabled={enviando}
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
             />
           </div>
           
@@ -89,19 +112,24 @@ export default function ServicoDetail() {
               placeholder="Conte-nos como podemos ajudar sua organização..."
               required
               rows="5"
-              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              disabled={enviando}
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
             />
           </div>
 
           <button
             type="submit"
-            className="px-6 py-3 bg-green-500 hover:bg-green-600 rounded font-semibold transition-colors"
+            disabled={enviando}
+            className="px-6 py-3 bg-green-500 hover:bg-green-600 disabled:bg-gray-400 rounded font-semibold transition-colors"
           >
-            Enviar Solicitação
+            {enviando ? 'Enviando...' : 'Enviar Solicitação'}
           </button>
           
           {enviado && (
             <p className="mt-4 text-green-200 font-semibold">✓ Mensagem enviada com sucesso! Entraremos em contato em breve.</p>
+          )}
+          {erro && (
+            <p className="mt-4 text-red-200 font-semibold">✗ Erro ao enviar. Tente novamente.</p>
           )}
         </form>
       </div>
