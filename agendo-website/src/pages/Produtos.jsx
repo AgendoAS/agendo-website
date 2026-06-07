@@ -3,17 +3,41 @@ import { useState } from 'react';
 export default function Produtos() {
   const [email, setEmail] = useState('');
   const [mensagem, setMensagem] = useState('');
+  const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
+  const [erro, setErro] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Mensagem:', mensagem);
-    setEnviado(true);
-    setTimeout(() => {
-      setEmail('');
-      setMensagem('');
-      setEnviado(false);
-    }, 3000);
+    setEnviando(true);
+    setErro(false);
+
+    try {
+      const response = await fetch('https://formspree.io/f/mwvjljpl', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          message: mensagem,
+          _subject: 'Interesse em conhecer os produtos - AGENDO',
+          _replyto: email
+        })
+      });
+
+      if (response.ok) {
+        setEnviado(true);
+        setEmail('');
+        setMensagem('');
+        setTimeout(() => setEnviado(false), 5000);
+      } else {
+        setErro(true);
+      }
+    } catch (err) {
+      setErro(true);
+      console.error('Erro ao enviar:', err);
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
@@ -93,7 +117,8 @@ export default function Produtos() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
               required
-              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              disabled={enviando}
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
             />
           </div>
           
@@ -104,19 +129,24 @@ export default function Produtos() {
               placeholder="Qual produto você tem interesse em conhecer melhor?"
               required
               rows="5"
-              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              disabled={enviando}
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50"
             />
           </div>
 
           <button
             type="submit"
-            className="px-6 py-3 bg-green-500 hover:bg-green-600 rounded font-semibold transition-colors"
+            disabled={enviando}
+            className="px-6 py-3 bg-green-500 hover:bg-green-600 disabled:bg-gray-400 rounded font-semibold transition-colors"
           >
-            Enviar Solicitação
+            {enviando ? 'Enviando...' : 'Enviar Solicitação'}
           </button>
           
           {enviado && (
             <p className="mt-4 text-green-200 font-semibold">✓ Mensagem enviada com sucesso! Entraremos em contato em breve.</p>
+          )}
+          {erro && (
+            <p className="mt-4 text-red-200 font-semibold">✗ Erro ao enviar. Tente novamente.</p>
           )}
         </form>
       </div>
