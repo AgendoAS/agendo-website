@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 
 const servicos = [
   {
@@ -29,6 +30,21 @@ const servicos = [
 ];
 
 export default function Servicos() {
+  const [email, setEmail] = useState('');
+  const [mensagem, setMensagem] = useState('');
+  const [enviado, setEnviado] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Email:', email, 'Mensagem:', mensagem);
+    setEnviado(true);
+    setTimeout(() => {
+      setEmail('');
+      setMensagem('');
+      setEnviado(false);
+    }, 3000);
+  };
+
   return (
     <div>
       <h1 className="text-4xl font-bold text-blue-800 mb-4">Nossos Serviços</h1>
@@ -36,7 +52,7 @@ export default function Servicos() {
         Soluções completas para o desenvolvimento e fortalecimento de Organizações da Sociedade Civil
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         {servicos.map((servico) => (
           <div
             key={servico.id}
@@ -55,6 +71,46 @@ export default function Servicos() {
             </Link>
           </div>
         ))}
+      </div>
+
+      <div className="bg-gradient-to-r from-blue-800 to-blue-900 rounded-lg shadow-lg p-8 text-white">
+        <h2 className="text-2xl font-bold mb-4">Como Podemos Ajudar?</h2>
+        <p className="mb-6 text-blue-100">Envie seu email e nos conte como podemos ajudar sua OSC. Entraremos em contato em breve para discutir soluções personalizadas.</p>
+
+        <form onSubmit={handleSubmit} className="max-w-xl">
+          <div className="mb-4">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="seu@email.com"
+              required
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+          </div>
+          
+          <div className="mb-4">
+            <textarea
+              value={mensagem}
+              onChange={(e) => setMensagem(e.target.value)}
+              placeholder="Conte-nos como podemos ajudar sua organização..."
+              required
+              rows="5"
+              className="w-full px-4 py-3 rounded text-slate-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="px-6 py-3 bg-green-500 hover:bg-green-600 rounded font-semibold transition-colors"
+          >
+            Enviar Solicitação
+          </button>
+          
+          {enviado && (
+            <p className="mt-4 text-green-200 font-semibold">✓ Mensagem enviada com sucesso! Entraremos em contato em breve.</p>
+          )}
+        </form>
       </div>
     </div>
   );
