@@ -15,8 +15,8 @@ export default function Ebooks() {
       pages: 22,
       category: 'Organizações da Sociedade Civil',
       highlights: ['Lei 13.019/2014 (MROSC) na prática', '3 fundamentos de gestão eficaz', '12 erros comuns com exemplos reais', 'Questionário de autoavaliação + diagnóstico'],
-      coverColor: 'from-green-600 to-green-400',
-      icon: '📋'
+      coverBg: 'bg-gradient-to-br from-green-700 via-green-600 to-emerald-500',
+      coverTitle: 'Gestão de OSC na Prática'
     },
     {
       id: 2,
@@ -27,8 +27,8 @@ export default function Ebooks() {
       pages: 48,
       category: 'Emendas Parlamentares',
       highlights: ['Legislação atualizada 2026', 'Passo a passo de captação', 'Modelos de documentação', 'Casos de sucesso reais'],
-      coverColor: 'from-blue-600 to-blue-400',
-      icon: '💼'
+      coverBg: 'bg-gradient-to-br from-blue-700 via-blue-600 to-cyan-500',
+      coverTitle: 'Emendas Parlamentares 2026'
     }
   ];
 
@@ -54,8 +54,12 @@ export default function Ebooks() {
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {ebooks.map((ebook) => (
             <div key={ebook.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
-              <div className={`bg-gradient-to-br ${ebook.coverColor} h-48 flex items-center justify-center relative`}>
-                <div className="text-7xl opacity-20">{ebook.icon}</div>
+              <div className={`${ebook.coverBg} h-64 flex items-center justify-center relative p-8`}>
+                <div className="text-center">
+                  <div className="text-6xl mb-4">📚</div>
+                  <h4 className="text-2xl font-bold text-white text-center leading-tight">{ebook.coverTitle}</h4>
+                  <p className="text-white text-opacity-80 mt-3 text-sm">AGENDO Consultoria</p>
+                </div>
                 <div className="absolute top-4 right-4 bg-white bg-opacity-90 px-3 py-1 rounded-full text-sm font-semibold text-slate-700">PDF</div>
               </div>
 
