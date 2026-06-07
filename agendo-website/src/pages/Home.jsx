@@ -25,7 +25,7 @@ export default function Home() {
         </div>
         <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-800">
           <div className="text-3xl font-bold text-blue-800 mb-2">100% MROSC</div>
-          <p className="text-gray-600">Segurança Jurídica</p>
+          <p className="text-gray-600">Conformidade Legal</p>
         </div>
       </div>
     </div>
