@@ -64,7 +64,7 @@ export default function Contato() {
                 <div>
                   <h3 className="font-bold text-slate-900 mb-2">Email</h3>
                   <a href="mailto:contato@agendoas.com" className="text-blue-800 hover:text-blue-900 transition-colors">
-                    contato@agendo.com.br
+                    contato@agendoas.com
                   </a>
                 </div>
               </div>
