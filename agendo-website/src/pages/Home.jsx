@@ -147,8 +147,9 @@ export default function Home() {
           <p className="mt-6 text-lg text-slate-600">
             A AGENDO foi fundada por Cissa Neves e Rangel Pinheiro para apoiar organizações da sociedade civil e
             agentes públicos na transformação de recursos em políticas efetivas. A equipe combina formação em
-            políticas públicas, atuação jurídica e experiência prática na assistência social, o que permite
-            tratar cada demanda com rigor técnico e conhecimento da realidade dos territórios.
+            políticas públicas, experiência em gestão pública e na administração de OSCs, atuação jurídica e
+            vivência prática na assistência social, o que permite tratar cada demanda com rigor técnico e
+            conhecimento da realidade dos territórios.
           </p>
         </div>
       </section>
